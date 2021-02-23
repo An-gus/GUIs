@@ -118,11 +118,15 @@ class Game(tk.Frame):
 
 			if self.hasWon():
 				self.winner = self.hasWon()
+				if self.winner != 'd':
+					txt = self.winner + ' has won!'
+				else:
+					txt = 'It\'s a draw!'
 				winFrame = tk.Frame(self.board, borderwidth=2, bg=self.clr['winBG'])
 				winFrame.place(relx=0.5, rely=0.5, anchor='center')
 				tk.Label(
 					winFrame,
-					text=self.winner+' has won!',
+					text=txt,
 					fg=self.clr['winText'],
 					bg=self.clr['winBG'],
 					font=('Courier, 25')
@@ -138,6 +142,7 @@ class Game(tk.Frame):
 					font=('Courier, 20'),
 					command=self.reset
 				).pack()
+
 
 	def hasWon(self):
 		# check rows
@@ -159,6 +164,9 @@ class Game(tk.Frame):
 			return self.matrix[1][1]
 		if self.matrix[0][2] == self.matrix[1][1] and self.matrix[1][1] == self.matrix[2][0] and self.matrix[1][1] != '-':
 			return self.matrix[1][1]
+		#check draw
+		if not any('-' in x for x in self.matrix):
+			return 'd'
 		#no winner
 		return None
 
