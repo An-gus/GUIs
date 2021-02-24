@@ -224,6 +224,7 @@ class Game(tk.Frame):
 						val = self.minmax(board, False)
 						board[y][x] = '-'
 						MaxVal = max(val, MaxVal)
+						if MaxVal == 10: break
 			return MaxVal
 		else:
 			MaxVal = 999
@@ -234,6 +235,7 @@ class Game(tk.Frame):
 						val = self.minmax(board, True)
 						board[y][x] = '-'
 						MaxVal = min(val, MaxVal)
+						if MaxVal == -10: break
 			return MaxVal
 
 	def aiMove(self,board):
