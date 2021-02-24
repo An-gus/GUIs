@@ -269,7 +269,7 @@ class Game(tk.Frame):
 
 	def getPlays(self, board):
 		plays = []
-		for x in range(6):
+		for x in range(7):
 			for y in range(5, -1, -1):
 				if board[y][x] == '-':
 					plays.append({'x':x, 'y':y})
