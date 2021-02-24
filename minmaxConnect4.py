@@ -1,5 +1,5 @@
 import tkinter as tk
-import math
+import math, random
 
 
 class Game(tk.Frame):
@@ -14,6 +14,7 @@ class Game(tk.Frame):
 		self.nturn = 'Purple'  #AI
 		self.winner = None
 		self.matrix = [['-'] * 7 for i in range(6)]
+
 
 		self.clr = {
 			'Purple':   '#ac49ee',
@@ -220,25 +221,19 @@ class Game(tk.Frame):
 			_x, _y = None, None
 			pos = None
 			MaxVal = -math.inf
-			MSVal = -math.inf
 			plays = self.getPlays(self.matrix)
 			for play in plays:
 				_x,_y = play['x'], play['y']
 				board[_y][_x] = 'Purple'
 				val = self.minmax(board, -math.inf, math.inf, depth, False)
-				sVal = self.score(board)
 				board[_y][_x] = '-'
-				if val > MaxVal:
+				if val >= MaxVal:
 					MaxVal = val
 					pos = {'x':_x, 'y':_y}
-				if sVal > MSVal:
-					MSVal = sVal
-					spos = {'x': _x, 'y': _y}
 			if pos != None: return pos
-			else: return spos
-
-
-
+			else:
+				print('biffed it')
+				return random.choice(plays)
 
 
 	def minmax(self, board, alpha, beta, depth, amMax):
@@ -308,7 +303,6 @@ class Game(tk.Frame):
 				if board[y][x] == board[y+1][x+1]:
 					score += (board[y][x] == 'Purple')-(board[y][x] == 'Red')
 		return score
-
 
 if __name__ == '__main__':
 	Game()
