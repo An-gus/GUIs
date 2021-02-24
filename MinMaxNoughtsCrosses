@@ -146,41 +146,42 @@ class Game(tk.Frame):
 
 
 			coords = self.aiMove(self.matrix)
-			x = coords['x']
-			y = coords['y']
-			self.matrix[y][x] = self.turn
-			self.cells[y][x]['frame'].configure(bg=self.clr[self.turn])
-			self.cells[y][x]['val'].configure(bg=self.clr[self.turn], text=self.icon[self.turn], font=('Courier, 50'))
-			self.turn, self.nturn = self.nturn, self.turn
-			self.turnLable.configure(text=self.turn)
-			self.update_idletasks()
+			if coords != None:
+				x = coords['x']
+				y = coords['y']
+				self.matrix[y][x] = self.turn
+				self.cells[y][x]['frame'].configure(bg=self.clr[self.turn])
+				self.cells[y][x]['val'].configure(bg=self.clr[self.turn], text=self.icon[self.turn], font=('Courier, 50'))
+				self.turn, self.nturn = self.nturn, self.turn
+				self.turnLable.configure(text=self.turn)
+				self.update_idletasks()
 
-			if self.hasWon(self.matrix):
-				self.winner = self.hasWon(self.matrix)
-				if self.winner != 'd':
-					txt = self.winner + ' has won!'
-				else:
-					txt = 'It\'s a draw!'
-				winFrame = tk.Frame(self.board, borderwidth=2, bg=self.clr['winBG'])
-				winFrame.place(relx=0.5, rely=0.5, anchor='center')
-				tk.Label(
-					winFrame,
-					text=txt,
-					fg=self.clr['winText'],
-					bg=self.clr['winBG'],
-					font=('Courier, 25')
-				).pack()
-				tk.Button(
-					winFrame,
-					text='Reset',
-					fg=self.clr['winText'],
-					bg=self.clr['winBG'],
-					activebackground=self.clr['winBG'],
-					activeforeground=self.clr['winText'],
-					borderwidth=0,
-					font=('Courier, 20'),
-					command=self.reset
-				).pack()
+				if self.hasWon(self.matrix):
+					self.winner = self.hasWon(self.matrix)
+					if self.winner != 'd':
+						txt = self.winner + ' has won!'
+					else:
+						txt = 'It\'s a draw!'
+					winFrame = tk.Frame(self.board, borderwidth=2, bg=self.clr['winBG'])
+					winFrame.place(relx=0.5, rely=0.5, anchor='center')
+					tk.Label(
+						winFrame,
+						text=txt,
+						fg=self.clr['winText'],
+						bg=self.clr['winBG'],
+						font=('Courier, 25')
+					).pack()
+					tk.Button(
+						winFrame,
+						text='Reset',
+						fg=self.clr['winText'],
+						bg=self.clr['winBG'],
+						activebackground=self.clr['winBG'],
+						activeforeground=self.clr['winText'],
+						borderwidth=0,
+						font=('Courier, 20'),
+						command=self.reset
+					).pack()
 
 
 	def hasWon(self, board):
