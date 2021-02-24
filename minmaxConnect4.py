@@ -1,4 +1,5 @@
 import tkinter as tk
+import math
 
 
 class Game(tk.Frame):
@@ -214,21 +215,29 @@ class Game(tk.Frame):
 		return None
 
 	def aiMove(self, board):
-		depth = 7 #This is the search depth of the MinMax, increasing it makes the AI 'smarter' but exponentially extends run time
+		depth = 6 #This is the search depth of the MinMax, increasing it makes the AI 'smarter' but exponentially extends run time
 		if self.winner == None:
 			_x, _y = None, None
 			pos = None
-			MaxVal = -99
+			MaxVal = -math.inf
+			MSVal = -math.inf
 			plays = self.getPlays(self.matrix)
 			for play in plays:
 				_x,_y = play['x'], play['y']
 				board[_y][_x] = 'Purple'
-				val = self.minmax(board, -999, 999, depth, False)
+				val = self.minmax(board, -math.inf, math.inf, depth, False)
+				sVal = self.score(board)
 				board[_y][_x] = '-'
 				if val > MaxVal:
 					MaxVal = val
 					pos = {'x':_x, 'y':_y}
-			return pos
+				if sVal > MSVal:
+					MSVal = sVal
+					spos = {'x': _x, 'y': _y}
+			if pos != None: return pos
+			else: return spos
+
+
 
 
 
@@ -236,15 +245,15 @@ class Game(tk.Frame):
 		wnr = self.hasWon(board)
 		if wnr != None or depth == 0:
 			if wnr == 'Purple':
-				return 100
+				return math.inf
 			elif wnr == 'Red':
-				return -100
+				return -math.inf
 			elif wnr == 'd':
 				return 0
 			else:
 				return self.score(board)
 		if amMax:
-			MaxVal = -999
+			MaxVal = -math.inf
 			plays = self.getPlays(board)
 			for play in plays:
 				x,y = play['x'], play['y']
@@ -255,7 +264,7 @@ class Game(tk.Frame):
 				if alpha >= beta: return MaxVal
 			return MaxVal
 		else:
-			MinVal = 999
+			MinVal = math.inf
 			plays = self.getPlays(board)
 			for play in plays:
 				x,y = play['x'],play['y']
