@@ -72,34 +72,34 @@ class Game(tk.Frame):
 		pos = None
 
 		if x >= 8 and x <= 158:
-			if y >= 58 and y <= 208:
+			if y >= 83 and y <= 233:
 				pos = 0
 
-			elif y >= 218 and y <= 368:
+			elif y >= 243 and y <= 393:
 				pos = 3
 
-			elif y >= 378 and y <= 528:
+			elif y >= 403 and y <= 553:
 				pos = 6
 
 		elif x >= 168 and x <= 318:
-			if y >= 58 and y <= 208:
+			if y >= 83 and y <= 233:
 				pos = 1
 
-			elif y >= 218 and y <= 368:
+			elif y >= 243 and y <= 393:
 				pos = 4
 
-			elif y >= 378 and y <= 528:
+			elif y >= 403 and y <= 553:
 				pos = 7
 
 
 		elif x >= 328 and x <= 478:
-			if y >= 58 and y <= 208:
+			if y >= 83 and y <= 233:
 				pos = 2
 
-			elif y >= 218 and y <= 368:
+			elif y >= 243 and y <= 393:
 				pos = 5
 
-			elif y >= 378 and y <= 528:
+			elif y >= 403 and y <= 553:
 				pos = 8
 
 		if pos != None:
